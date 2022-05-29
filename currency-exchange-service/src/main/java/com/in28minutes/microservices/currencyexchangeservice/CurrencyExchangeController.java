@@ -1,6 +1,5 @@
 package com.in28minutes.microservices.currencyexchangeservice;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.slf4j.Logger;
