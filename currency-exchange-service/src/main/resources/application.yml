@@ -7,8 +7,8 @@ spring:
       ddl-auto: update
   datasource:
     username: root
-    password: Fnst*1234
-    url: jdbc:mysql://localhost/test
+    password: mypassword
+    url: jdbc:mysql://localhost/udemy_spring_cloud
 
 server:
   port: 8000
