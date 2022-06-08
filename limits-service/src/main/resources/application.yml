@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: limits-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+  profiles:
+    active: qa
+
+management:
+  endpoint:
+    health:
+      show-details: always
+      bus-refresh:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
