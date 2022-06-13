@@ -1,8 +1,5 @@
 package com.in28minutes.microservices.currencyexchangeservice;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +7,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 public class CurrencyExchangeController {
@@ -37,7 +36,7 @@ public class CurrencyExchangeController {
 		ExchangeValue exchangeValue = optional.get();
 		String port = environment.getProperty("local.server.port");
 		log.info(String.format("port %s", port));
-		exchangeValue.setPort(Integer.parseInt(port));
+		exchangeValue.setEnvironment("currency exchange server port " + port);
 		return exchangeValue;
 	}
 

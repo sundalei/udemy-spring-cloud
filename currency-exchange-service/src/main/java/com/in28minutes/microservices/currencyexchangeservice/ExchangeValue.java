@@ -21,7 +21,7 @@ public class ExchangeValue {
 	private String to;
 	
 	private BigDecimal conversionMultiple;
-	private int port;
+	private String environment;
 	
 	public ExchangeValue() {
 		
@@ -51,12 +51,12 @@ public class ExchangeValue {
 		return conversionMultiple;
 	}
 
-	public int getPort() {
-		return port;
+	public String getEnvironment() {
+		return environment;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
+	public void setEnvironment(String environment) {
+		this.environment = environment;
 	}
 
 	public void setId(Long id) {

@@ -2,28 +2,28 @@ package com.in28minutes.microservices.currencyconversionservice;
 
 import java.math.BigDecimal;
 
-public class CurrencyConversionBean {
+public class  CurrencyConversionBean {
     private Long id;
     private String from;
     private String to;
     private BigDecimal conversionMultiple;
     private BigDecimal quantity;
     private BigDecimal totalCalculatedAmount;
-    private int port;
+    private String environment;
 
     public CurrencyConversionBean() {
         
     }
 
     public CurrencyConversionBean(Long id, String from, String to, BigDecimal conversionMultiple, BigDecimal quantity,
-            BigDecimal totalCalculatedAmount, int port) {
+            BigDecimal totalCalculatedAmount, String environment) {
         this.id = id;
         this.from = from;
         this.to = to;
         this.conversionMultiple = conversionMultiple;
         this.quantity = quantity;
         this.totalCalculatedAmount = totalCalculatedAmount;
-        this.port = port;
+        this.environment = environment;
     }
 
     public Long getId() {
@@ -74,11 +74,11 @@ public class CurrencyConversionBean {
         this.totalCalculatedAmount = totalCalculatedAmount;
     }
 
-    public int getPort() {
-        return port;
+    public String getEnvironment() {
+        return environment;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 }

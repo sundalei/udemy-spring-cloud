@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class CurrencyConversionController {
+public class  CurrencyConversionController {
 
         private final CurrencyExchangeServiceProxy currencyExchangeService;
 
