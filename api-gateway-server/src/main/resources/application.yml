@@ -2,12 +2,12 @@ spring:
   application:
     name: api-gateway-server
 
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
 
 server:
   port: 8765
