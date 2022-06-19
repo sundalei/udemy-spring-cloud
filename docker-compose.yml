@@ -11,6 +11,48 @@ services:
       - SERVER_PORT=8000
       - MYSQL_URL=jdbc:mysql://mysqlserver/udemy_spring_cloud
       - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
+      - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+    restart: always
+    depends_on:
+      - netflix-eureka-naming-server
+
+  currency-conversion-service:
+    image: sundalei/msv2-currency-conversion-service:0.0.1-SNAPSHOT
+    ports:
+      - "8100:8100"
+    networks:
+      - currency-network
+    environment:
+      - SERVER_PORT=8100
+      - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
+      - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+    restart: always
+    depends_on:
+      - netflix-eureka-naming-server
+
+  api-gateway-server:
+    image: sundalei/msv2-api-gateway-server:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+    networks:
+      - currency-network
+    environment:
+      - SERVER_PORT=8765
+      - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
+      - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+    restart: always
+    depends_on:
+      - netflix-eureka-naming-server
+
+  zipkin-server:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - currency-network
+    environment:
+      - SERVER_PORT=8765
+      - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
     restart: always
     depends_on:
       - netflix-eureka-naming-server

@@ -14,9 +14,12 @@ import org.springframework.web.client.RestTemplate;
 public class  CurrencyConversionController {
 
         private final CurrencyExchangeServiceProxy currencyExchangeService;
+        private final RestTemplate restTemplate;
 
-        public CurrencyConversionController(CurrencyExchangeServiceProxy currencyExchangeService) {
+        public CurrencyConversionController(CurrencyExchangeServiceProxy currencyExchangeService,
+                                            RestTemplate restTemplate) {
                 this.currencyExchangeService = currencyExchangeService;
+                this.restTemplate = restTemplate;
         }
 
         @GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
@@ -28,11 +31,12 @@ public class  CurrencyConversionController {
                 uriVariables.put("from", from);
                 uriVariables.put("to", to);
 
-                ResponseEntity<CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity(
-                                "http://localhost:8000/currency-exchange/from/{from}/to/{to}",
+                ResponseEntity<CurrencyConversionBean> responseEntity = restTemplate.getForEntity(
+                                "http://currency-exchange-service:8000/currency-exchange/from/{from}/to/{to}",
                                 CurrencyConversionBean.class, uriVariables);
 
                 CurrencyConversionBean body = responseEntity.getBody();
+                assert body != null;
                 return new CurrencyConversionBean(body.getId(), from, to, body.getConversionMultiple(), quantity,
                                 quantity.multiply(body.getConversionMultiple()), body.getEnvironment() + " from resttemplate");
         }
