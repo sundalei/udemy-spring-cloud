@@ -28,6 +28,8 @@ public class CurrencyExchangeController {
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")
 	public ExchangeValue retrieveExchangeValue(@PathVariable String from, @PathVariable String to) {
 
+		log.info("retrieveExchangeValue called with {} to {}", from, to);
+
 		Optional<ExchangeValue> optional = repository.findByFromAndTo(from, to);
 		if (optional.isEmpty()) {
 			throw new ExchangeValueNotFoundException(String.format("Exchange from %s to %s is not found.", from, to));
@@ -35,7 +37,6 @@ public class CurrencyExchangeController {
 
 		ExchangeValue exchangeValue = optional.get();
 		String port = environment.getProperty("local.server.port");
-		log.info(String.format("port %s", port));
 		exchangeValue.setEnvironment("currency exchange server port " + port);
 		return exchangeValue;
 	}

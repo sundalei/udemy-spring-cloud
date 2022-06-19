@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: ${SERVER_PORT:8000}
 
 spring:
   application:
@@ -9,13 +9,33 @@ spring:
       ddl-auto: create
     show-sql: true
   datasource:
-    username: root
-    password: mypassword
-    url: jdbc:mysql://localhost/udemy_spring_cloud
-    
+    username: ${MYSQL_USER:user}
+    password: ${MYSQL_PASS:mypassword}
+    url: ${MYSQL_URL:jdbc:mysql://localhost/udemy_spring_cloud}
+  sleuth:
+    sampler:
+      probability: 1.0
+
 eureka:
   instance:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka}
+
+resilience4j:
+  retry:
+    instances:
+      sample-api:
+        max-attempts: 5
+        wait-duration: 5s
+        enable-exponential-backoff: true
+  circuitbreaker:
+    instances:
+      default:
+        failure-rate-threshold: 90
+  ratelimiter:
+    instances:
+      default:
+        limit-for-period: 2
+        limit-refresh-period: 10s
