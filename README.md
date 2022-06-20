@@ -1,7 +1,10 @@
 ## deploy as docker containers.
 ### build images
 ```
-./mvnw -pl currency-conversion-service spring-boot:build-image -DskipTests
+./mvnw -pl currency-conversion-service    spring-boot:build-image -DskipTests
+./mvnw -pl currency-exchange-service      spring-boot:build-image -DskipTests
+./mvnw -pl api-gateway-server             spring-boot:build-image -DskipTests
+./mvnw -pl netflix-eureka-naming-server   spring-boot:build-image -DskipTests
 ```
 ### urls to check
 ```
