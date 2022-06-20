@@ -50,12 +50,7 @@ services:
       - "9411:9411"
     networks:
       - currency-network
-    environment:
-      - SERVER_PORT=8765
-      - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
     restart: always
-    depends_on:
-      - netflix-eureka-naming-server
 
   netflix-eureka-naming-server:
     image: sundalei/msv2-netflix-eureka-naming-server:0.0.1-SNAPSHOT
