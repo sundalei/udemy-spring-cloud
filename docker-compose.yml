@@ -12,6 +12,8 @@ services:
       - MYSQL_URL=jdbc:mysql://mysqlserver/udemy_spring_cloud
       - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
       - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+      - RABBITMQ_HOST=rabbitmq
+      - ZIPKIN_SENDER_TYPE=rabbit
     restart: always
     depends_on:
       - netflix-eureka-naming-server
@@ -26,6 +28,8 @@ services:
       - SERVER_PORT=8100
       - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
       - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+      - RABBITMQ_HOST=rabbitmq
+      - ZIPKIN_SENDER_TYPE=rabbit
     restart: always
     depends_on:
       - netflix-eureka-naming-server
@@ -40,6 +44,8 @@ services:
       - SERVER_PORT=8765
       - EUREKA_CLIENT_SERVICE_URL=http://netflix-eureka-naming-server:8761/eureka
       - ZIPKIN_BASE_URL=http://zipkin-server:9411/
+      - RABBITMQ_HOST=rabbitmq
+      - ZIPKIN_SENDER_TYPE=rabbit
     restart: always
     depends_on:
       - netflix-eureka-naming-server
@@ -48,6 +54,17 @@ services:
     image: openzipkin/zipkin
     ports:
       - "9411:9411"
+    networks:
+      - currency-network
+    environment:
+      - RABBIT_ADDRESSES=rabbitmq
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3.8.12-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - currency-network
     restart: always
