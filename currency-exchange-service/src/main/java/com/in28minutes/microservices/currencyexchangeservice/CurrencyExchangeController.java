@@ -13,7 +13,7 @@ import java.util.Optional;
 @RestController
 public class CurrencyExchangeController {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+	private final Logger log = LoggerFactory.getLogger(CurrencyExchangeController.class);
 
 	private final Environment environment;
 
@@ -37,7 +37,12 @@ public class CurrencyExchangeController {
 
 		ExchangeValue exchangeValue = optional.get();
 		String port = environment.getProperty("local.server.port");
-		exchangeValue.setEnvironment("currency exchange server port " + port);
+		
+		//CHANGE-KUBERNETES
+		String host = environment.getProperty("HOSTNAME");
+		String version = "v11";
+		
+		exchangeValue.setEnvironment(port + " " + version + " " + host);
 		return exchangeValue;
 	}
 

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.in28minutes.microservices</groupId>
 		<artifactId>udemy-spring-cloud</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.11-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>limits-service</artifactId>
@@ -67,7 +67,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+        </plugins>
 	</build>
 
 </project>
