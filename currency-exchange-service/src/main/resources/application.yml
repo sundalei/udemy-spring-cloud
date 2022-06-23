@@ -9,9 +9,9 @@ spring:
       ddl-auto: create
     show-sql: true
   datasource:
-    username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASS:oarnud9I}
-    url: ${MYSQL_URL:jdbc:mysql://localhost/udemy_spring_cloud}
+    username: ${MYSQL_USER:sa}
+    password: ${MYSQL_PASS:password}
+    url: ${H2_URL:jdbc:h2:mem:testdb}
   sleuth:
     sampler:
       probability: 1.0
