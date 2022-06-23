@@ -37,6 +37,7 @@ public class  CurrencyConversionController {
         	
         	//CHANGE-KUBERNETES
         	logger.info("calculateCurrencyConversion called with {} to {} with {}", from, to, quantity);
+                logger.info("currency exchange url {}", currencyExchangeUrl);
 
                 Map<String, String> uriVariables = new HashMap<>();
                 uriVariables.put("from", from);
@@ -52,7 +53,7 @@ public class  CurrencyConversionController {
                                 quantity.multiply(body.getConversionMultiple()), body.getEnvironment() + " from resttemplate");
         }
 
-        @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+        @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
         public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from,
                         @PathVariable String to,
                         @PathVariable BigDecimal quantity) {
