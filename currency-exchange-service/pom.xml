@@ -8,7 +8,7 @@
 		<version>0.0.11-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>currency-exchange-service-kubernetes</artifactId>
+	<artifactId>currency-exchange-service</artifactId>
 	<name>currency-exchange-service-kubernetes</name>
 	<description>Demo project for Spring Boot</description>
 
