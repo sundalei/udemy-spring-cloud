@@ -4,14 +4,14 @@ metadata:
   annotations:
     deployment.kubernetes.io/revision: "1"
   labels:
-    app: currency-exchange
-  name: currency-exchange
+    app: currency-conversion
+  name: currency-conversion
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: currency-exchange
+      app: currency-conversion
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,27 +20,27 @@ spec:
   template:
     metadata:
       labels:
-        app: currency-exchange
+        app: currency-conversion
     spec:
       containers:
-      - image: sundalei/msv2-currency-exchange-service:0.0.13-SNAPSHOT
+      - image: sundalei/msv2-currency-conversion-service:0.0.13-SNAPSHOT
         imagePullPolicy: IfNotPresent
-        name: msv2-currency-exchange-service
+        name: msv2-currency-conversion-service
       restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: currency-exchange
-  name: currency-exchange
+    app: currency-conversion
+  name: currency-conversion
   namespace: default
 spec:
   ports:
-  - port: 8000
+  - port: 8100
     protocol: TCP
-    targetPort: 8000
+    targetPort: 8100
   selector:
-    app: currency-exchange
+    app: currency-conversion
   sessionAffinity: None
   type: LoadBalancer
