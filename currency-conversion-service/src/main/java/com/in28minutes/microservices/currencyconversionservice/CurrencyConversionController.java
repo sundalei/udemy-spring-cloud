@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ public class  CurrencyConversionController {
         private final CurrencyExchangeServiceProxy currencyExchangeService;
         private final RestTemplate restTemplate;
 
+        @Value("${currency_exchange_url}")
+        private String currencyExchangeUrl;
+
         public CurrencyConversionController(CurrencyExchangeServiceProxy currencyExchangeService,
                                             RestTemplate restTemplate) {
                 this.currencyExchangeService = currencyExchangeService;
@@ -33,13 +37,14 @@ public class  CurrencyConversionController {
         	
         	//CHANGE-KUBERNETES
         	logger.info("calculateCurrencyConversion called with {} to {} with {}", from, to, quantity);
+                logger.info("currency exchange url {}", currencyExchangeUrl);
 
                 Map<String, String> uriVariables = new HashMap<>();
                 uriVariables.put("from", from);
                 uriVariables.put("to", to);
 
                 ResponseEntity<CurrencyConversionBean> responseEntity = restTemplate.getForEntity(
-                                "http://currency-exchange-service:8000/currency-exchange/from/{from}/to/{to}",
+                                "http://" + currencyExchangeUrl + ":8000/currency-exchange/from/{from}/to/{to}",
                                 CurrencyConversionBean.class, uriVariables);
 
                 CurrencyConversionBean body = responseEntity.getBody();
@@ -48,7 +53,7 @@ public class  CurrencyConversionController {
                                 quantity.multiply(body.getConversionMultiple()), body.getEnvironment() + " from resttemplate");
         }
 
-        @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
+        @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
         public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from,
                         @PathVariable String to,
                         @PathVariable BigDecimal quantity) {

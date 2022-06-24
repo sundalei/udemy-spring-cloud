@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>com.in28minutes.microservices</groupId>
 		<artifactId>udemy-spring-cloud</artifactId>
-		<version>0.0.11-SNAPSHOT</version>
+		<version>0.0.13-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>currency-conversion-service-kubernetes</artifactId>
+	<artifactId>currency-conversion-service</artifactId>
 	<name>currency-conversion-service-kubernetes</name>
 	<description>Demo project for Spring Boot</description>
 
