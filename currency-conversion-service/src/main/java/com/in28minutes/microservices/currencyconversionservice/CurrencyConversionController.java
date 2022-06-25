@@ -21,8 +21,8 @@ public class  CurrencyConversionController {
         private final CurrencyExchangeServiceProxy currencyExchangeService;
         private final RestTemplate restTemplate;
 
-        @Value("${currency_exchange_url}")
-        private String currencyExchangeUrl;
+        @Value("${currency_exchange_service_url}")
+        private String currencyExchangeServiceUrl;
 
         public CurrencyConversionController(CurrencyExchangeServiceProxy currencyExchangeService,
                                             RestTemplate restTemplate) {
@@ -37,14 +37,14 @@ public class  CurrencyConversionController {
         	
         	//CHANGE-KUBERNETES
         	logger.info("calculateCurrencyConversion called with {} to {} with {}", from, to, quantity);
-                logger.info("currency exchange url {}", currencyExchangeUrl);
+                logger.info("currency exchange url {}", currencyExchangeServiceUrl);
 
                 Map<String, String> uriVariables = new HashMap<>();
                 uriVariables.put("from", from);
                 uriVariables.put("to", to);
 
                 ResponseEntity<CurrencyConversionBean> responseEntity = restTemplate.getForEntity(
-                                "http://" + currencyExchangeUrl + ":8000/currency-exchange/from/{from}/to/{to}",
+                                currencyExchangeServiceUrl + ":8000/currency-exchange/from/{from}/to/{to}",
                                 CurrencyConversionBean.class, uriVariables);
 
                 CurrencyConversionBean body = responseEntity.getBody();
@@ -57,6 +57,8 @@ public class  CurrencyConversionController {
         public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from,
                         @PathVariable String to,
                         @PathVariable BigDecimal quantity) {
+
+                logger.info("calculateCurrencyConversion feign called with {} to {} with {}", from, to, quantity);
 
                 CurrencyConversionBean body = currencyExchangeService.retrieveExchangeValue(from, to);
                 return new CurrencyConversionBean(body.getId(), from, to, body.getConversionMultiple(), quantity,

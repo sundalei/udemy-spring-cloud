@@ -19,4 +19,4 @@ management:
     readinessstate:
       enabled: true
 
-currency_exchange_url: ${CURRENCY_EXCHANGE_SERVICE_HOST}
+currency_exchange_service_url: ${CURRENCY_EXCHANGE_URL}

@@ -23,9 +23,12 @@ spec:
         app: currency-conversion
     spec:
       containers:
-      - image: sundalei/msv2-currency-conversion-service:0.0.13-SNAPSHOT
+      - image: sundalei/msv2-currency-conversion-service:0.0.14-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: msv2-currency-conversion-service
+        env:
+          - name: CURRENCY_EXCHANGE_URL
+            value: http://currency-exchange
       restartPolicy: Always
 ---
 apiVersion: v1
