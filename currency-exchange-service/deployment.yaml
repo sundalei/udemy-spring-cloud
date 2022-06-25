@@ -23,7 +23,7 @@ spec:
         app: currency-exchange
     spec:
       containers:
-      - image: sundalei/msv2-currency-exchange-service:0.0.14-SNAPSHOT
+      - image: sundalei/msv2-currency-exchange-service:0.0.15-SNAPSHOT
         imagePullPolicy: IfNotPresent
         name: msv2-currency-exchange-service
       restartPolicy: Always
